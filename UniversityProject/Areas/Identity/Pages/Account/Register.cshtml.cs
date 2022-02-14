@@ -60,6 +60,18 @@ namespace UniversityProject.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name ="Date of Birth")]
+            [Required]
+            public DateTime DateofBirth { get; set; }
+
+            [Display(Name = "Display Name")]
+            [Required]
+            public string DisplayName { get; set; }
+            
+            [Display(Name ="Is this an Admin User?")]
+            [Required]
+            public bool IsAdminUser { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -74,7 +86,13 @@ namespace UniversityProject.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new MyIdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new MyIdentityUser { 
+                    UserName = Input.Email, 
+                    Email = Input.Email ,
+                    DisplayName= Input.DisplayName,
+                    DateOfBirth = Input.DateofBirth,
+                    IsAdminUser = Input.IsAdminUser,
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
