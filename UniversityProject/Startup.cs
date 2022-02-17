@@ -94,8 +94,14 @@ namespace UniversityProject
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name:"areas",
+                    pattern:"{areas:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
             });

@@ -10,6 +10,7 @@ namespace UniversityProject.Data
     public class ApplicationDbContext 
         : IdentityDbContext<MyIdentityUser ,MyIdentityRole, Guid>
     {
+        public DbSet<Department> Departments { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
