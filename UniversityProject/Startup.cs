@@ -10,6 +10,9 @@ using System;
 using UniversityProject.Data;
 using UniversityProject.Models;
 using UniversityProject.Services;
+using Microsoft.AspNetCore.Mvc;
+
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
 namespace UniversityProject
 {
@@ -65,6 +68,27 @@ namespace UniversityProject
 
             services
                 .AddSingleton<IEmailSender, MyEmailSender>();
+
+            services
+                .AddCors(options => options.AddPolicy("MyCorsPloicy", builder =>
+                 {
+                     builder.AllowAnyOrigin()
+                     .AllowAnyHeader()
+                     .AllowAnyMethod();
+                 }
+                ));
+
+            services
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1",
+                        new Microsoft.OpenApi.Models.OpenApiInfo
+                        {
+                            Title = "University Project"
+                            Version = "v1",
+                        });
+
+                });
 
         }
 
